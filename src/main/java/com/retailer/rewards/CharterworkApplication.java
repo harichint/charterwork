@@ -1,4 +1,4 @@
-package com.example.charterwork;
+package com.retailer.rewards;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CharterworkApplication {
 
 	public static void main(String[] args) {
+		System.out.println("Hello");
 		SpringApplication.run(CharterworkApplication.class, args);
+
 	}
 
 }

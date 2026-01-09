@@ -2,6 +2,8 @@ package com.retailer.rewards.service;
 
 import com.retailer.rewards.model.*;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,8 +20,8 @@ public class RewardsService {    public long calculatePoints(double amount) {
     return points;
 }
 
-    public RewardResponse processRewards(java.lang.String customerId, java.util.List<androidx.room.Transaction> transactions, int monthsLimit) {
-        java.time.LocalDate limitDate = com.google.android.libraries.places.api.model.LocalDate.now().minusMonths(monthsLimit);
+    public RewardResponse processRewards(java.lang.String customerId, java.util.List<Transaction> transactions, int monthsLimit) {
+        java.time.LocalDate limitDate = LocalDate.now().minusMonths(monthsLimit);
 
         java.util.Map<Month, java.lang.Long> pointsByMonth = transactions.stream()
                 .filter(t -> t.getCustomerId().equals(customerId))

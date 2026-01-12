@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.charter.retailer.service.RewardsServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-01-12T20:05:14" hostname="Haripriyas-Air.lan" time="0.03">
+  <properties/>
+  <testcase name="testCalculatePoints_Above100" classname="com.charter.retailer.service.RewardsServiceTest" time="0.014"/>
+  <testcase name="testCalculatePoints_Below50" classname="com.charter.retailer.service.RewardsServiceTest" time="0.004"/>
+  <testcase name="testCalculatePoints_Between50And100" classname="com.charter.retailer.service.RewardsServiceTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

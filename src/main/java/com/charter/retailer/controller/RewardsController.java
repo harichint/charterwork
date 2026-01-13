@@ -15,11 +15,13 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/api/rewards")
 public class RewardsController {
 
-    @Autowired
     private RewardsService rewardsService;
-
-    @Autowired
     private DataSimulationService dataService;
+
+    public RewardsController(RewardsService rewardsService, DataSimulationService dataService) {
+        this.rewardsService = rewardsService;
+        this.dataService = dataService;
+    }
 
     /**
      * Gets rewards.

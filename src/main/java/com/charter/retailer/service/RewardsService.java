@@ -4,7 +4,6 @@ import com.charter.retailer.model.MonthlyPoints;
 import com.charter.retailer.model.RewardResponse;
 import com.charter.retailer.model.Transaction;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -42,7 +41,7 @@ public class RewardsService {
      * @return the reward response
      */
     public RewardResponse processRewards(java.lang.String customerId, List<Transaction> transactions, int monthsLimit) {
-        java.time.LocalDate limitDate = LocalDate.now().minusMonths(monthsLimit);
+        LocalDate limitDate = LocalDate.now().minusMonths(monthsLimit);
 
         Map<Month, Long> pointsByMonth = transactions.stream()
                 .filter(t -> t.getCustomerId().equals(customerId))

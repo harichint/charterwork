@@ -3,7 +3,6 @@ package com.charter.retailer.controller;
 import com.charter.retailer.model.RewardResponse;
 import com.charter.retailer.service.DataSimulationService;
 import com.charter.retailer.service.RewardsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.CompletableFuture;

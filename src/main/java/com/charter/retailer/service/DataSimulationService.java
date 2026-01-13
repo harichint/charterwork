@@ -18,7 +18,7 @@ public class DataSimulationService {
      *
      * @return the java . util . concurrent . completable future
      */
-    public java.util.concurrent.CompletableFuture<List<Transaction>> fetchTransactionsAsync() {
+    public CompletableFuture<List<Transaction>> fetchTransactionsAsync() {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(500); // Simulate network latency

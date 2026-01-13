@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -43,7 +44,7 @@ public class RewardsService {
     public RewardResponse processRewards(java.lang.String customerId, List<Transaction> transactions, int monthsLimit) {
         java.time.LocalDate limitDate = LocalDate.now().minusMonths(monthsLimit);
 
-        java.util.Map<Month, java.lang.Long> pointsByMonth = transactions.stream()
+        Map<Month, Long> pointsByMonth = transactions.stream()
                 .filter(t -> t.getCustomerId().equals(customerId))
                 .filter(t -> t.getTransactionDate().isAfter(limitDate))
                 .collect(Collectors.groupingBy(

@@ -6,6 +6,7 @@ import com.charter.retailer.model.Transaction;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -35,28 +36,31 @@ public class RewardsService {
     /**
      * Process rewards reward response.
      *
-     * @param customerId   the customer id
+     * @param customerIds   the customer ids list
      * @param transactions the transactions
      * @param monthsLimit  the months limit
      * @return the reward response
      */
-    public RewardResponse processRewards(java.lang.String customerId, List<Transaction> transactions, int monthsLimit) {
+    public RewardResponse processRewards(List<String> customerIds, List<Transaction> transactions, int monthsLimit) {
         LocalDate limitDate = LocalDate.now().minusMonths(monthsLimit);
+        Map<String, List<MonthlyPoints>> customerPoints = new HashMap<>();
+        for (String customerId: customerIds) {
+            Map<Month, Long> pointsByMonth = transactions.stream()
+                    .filter(t -> t.getCustomerId().equals(customerId))
+                    .filter(t -> t.getTransactionDate().isAfter(limitDate))
+                    .collect(Collectors.groupingBy(
+                            t -> t.getTransactionDate().getMonth(),
+                            Collectors.summingLong(t -> calculatePoints(t.getAmount()))
+                    ));
 
-        Map<Month, Long> pointsByMonth = transactions.stream()
-                .filter(t -> t.getCustomerId().equals(customerId))
-                .filter(t -> t.getTransactionDate().isAfter(limitDate))
-                .collect(Collectors.groupingBy(
-                        t -> t.getTransactionDate().getMonth(),
-                        Collectors.summingLong(t -> calculatePoints(t.getAmount()))
-                ));
-
-        List<MonthlyPoints> monthlyDetails = pointsByMonth.entrySet().stream()
-                .map(e -> new MonthlyPoints(e.getKey().name(), e.getValue()))
-                .collect(Collectors.toList());
-
-        long totalPoints = monthlyDetails.stream().mapToLong(MonthlyPoints::getPoints).sum();
-
-        return new RewardResponse(customerId, monthlyDetails, totalPoints);
+            List<MonthlyPoints> monthlyDetails = pointsByMonth.entrySet().stream()
+                    .map(e -> new MonthlyPoints(e.getKey().name(), e.getValue()))
+                    .collect(Collectors.toList());
+            customerPoints.put(customerId, monthlyDetails);
+        }
+        Map<String, Long> customerTotalPoints = new HashMap<>();
+        customerPoints.keySet().stream().forEach(key -> customerTotalPoints.put(key, customerPoints.get(key).stream().mapToLong(MonthlyPoints::getPoints).sum()));
+        return new RewardResponse(transactions, customerTotalPoints);
+//        return new RewardResponse(customerId, monthlyDetails, totalPoints);
     }
 }

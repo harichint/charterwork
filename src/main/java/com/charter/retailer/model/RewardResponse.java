@@ -1,36 +1,36 @@
 package com.charter.retailer.model;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type Reward response.
  */
 public class RewardResponse {
-    private String customerId;
-    private List<MonthlyPoints> monthlyPoints;
-    private long totalPoints;
 
-    public RewardResponse(String customerId, List<MonthlyPoints> monthlyPoints, long totalPoints) {
-        this.customerId = customerId;
-        this.monthlyPoints = monthlyPoints;
-        this.totalPoints = totalPoints;
+    private Map<String, Long> customerTotalPoints;
+    private List<Transaction> transactionList;
+
+    public RewardResponse(//List<MonthlyPoints> monthlyPoints,
+                          List<Transaction> transactions,
+                          Map<String, Long> customerTotalPoints) {
+        this.customerTotalPoints = customerTotalPoints;
+        this.transactionList = transactions;
     }
 
-    public String getCustomerId() { return customerId; }
-
-    public List<MonthlyPoints> getMonthlyPoints() { return monthlyPoints; }
-
-    public long getTotalPoints() { return totalPoints; }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public List<Transaction> getTransactionList() {
+        return transactionList;
     }
 
-    public void setMonthlyPoints(List<MonthlyPoints> monthlyPoints) {
-        this.monthlyPoints = monthlyPoints;
+    public void setTransactionList(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
     }
 
-    public void setTotalPoints(long totalPoints) {
-        this.totalPoints = totalPoints;
+    public Map<String, Long> getCustomerTotalPoints() {
+        return customerTotalPoints;
+    }
+
+    public void setCustomerTotalPoints(Map<String, Long> customerTotalPoints) {
+        this.customerTotalPoints = customerTotalPoints;
     }
 }
